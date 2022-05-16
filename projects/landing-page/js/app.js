@@ -1,62 +1,46 @@
-/**
- * 
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- * 
- * Dependencies: None
- * 
- * JS Version: ES2015/ES6
- * 
- * JS Standard: ESlint
- * 
-*/
 
 /**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
-*/
+Global definitions
+ */
+let sections = document.querySelectorAll('section');
+/**
+function to start when page loads to populate list
+ */
+ DynamicNavigation();
+function DynamicNavigation(){
+    sections.forEach(tabBuilder)
+};
+/**
+Single addition of tab with link
+ */
+ function tabBuilder(section) {
+
+  let listTab = `<a href="#${section.id}" data-nav="${section.id}" class="menu__link">${section.id}</a>`;
+  let singleNode = document.createElement("li");
+  singleNode.insertAdjacentHTML("afterbegin",listTab);
+  document.getElementById("navbar__list").appendChild(singleNode);
+}
+/**
+scroll action event
+ */
+ window.addEventListener('scroll', () => scroller())
 
 /**
- * Define Global Variables
- * 
-*/
-
-
+scroll function
+ */
+function scroller(){
+    sections.forEach(sectionScroller)
+};
 /**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
+ function for each section
+ */
+	function sectionScroller(currentSection) {
+     let newTabHighlight = document.getElementById("navbar__list").querySelector(`[data-nav=${currentSection.id}]`);
+	   if(currentSection.getBoundingClientRect().top >= -520 && currentSection.getBoundingClientRect().top <= 520){
+       newTabHighlight.classList.add("newTabHighlight");
+    }
+    else{
 
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
-// build the nav
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
-
+      newTabHighlight.classList.remove("newTabHighlight");
+    }
+	};
